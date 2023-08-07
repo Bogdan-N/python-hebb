@@ -6,20 +6,18 @@ def activation(x):
     return np.where(x >= 0, 1, -1)
 
 # Функція для навчання моделі Хебба
-def train_hebb_model(inputs, outputs):
+def train_hebb_model(inputs, outputs, learning_rate):
     num_inputs = inputs.shape[1]
     num_outputs = outputs.shape[1]
     weights = np.zeros((num_inputs, num_outputs))
 
-    # Додаткова змінна для підрахунку кількості зображень для кожної літери
     num_images_per_letter = 2
 
     for i in range(outputs.shape[0]):
-        # Повторення навчання на двох зображеннях для кожної літери
         for _ in range(num_images_per_letter):
             x = inputs[i]
             y = outputs[i]
-            weights += np.outer(x, y)
+            weights += learning_rate * np.outer(x, y)
     return weights
 
 
@@ -64,8 +62,11 @@ outputs = np.array([[1, -1, -1, -1],
                     [-1, -1, -1, 1]])
 
 
-# Навчання моделі Хебба
-weights = train_hebb_model(inputs, outputs)
+
+# Навчання моделі Хебба зі зниженою швидкістю для запобігання
+# нерозв'язним проблемам адаптації ваг зв'язків.
+learning_rate = 0.001
+weights = train_hebb_model(inputs, outputs, learning_rate)
 
 # Завантаження та обробка тестових зображень
 test_image_paths = ["./letters/b_test.png", "./letters/d_test.png", "./letters/h_test.png", "./letters/o_test.png"]
