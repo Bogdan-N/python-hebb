@@ -23,7 +23,6 @@ def train_hebb_model(inputs, outputs, learning_rate):
 
 # Функція для розпізнавання букв за допомогою моделі Хебба
 def predict_hebb_model(inputs, weights):
-    
     activations = activation(np.dot(inputs, weights))
     return activations
 
@@ -44,7 +43,6 @@ train_image_paths_h = ["./letters/h.png", "./letters/h_2.png"]
 train_image_paths_o = ["./letters/o.png", "./letters/o_2.png"]
 
 train_image_paths = [train_image_paths_b, train_image_paths_d, train_image_paths_h, train_image_paths_o]
-# target_size = (5, 5)  # Цільовий розмір зображення
 
 train_images = []
 for paths in train_image_paths:
@@ -74,7 +72,6 @@ test_images = process_images(test_image_paths)
 
 # Тестування моделі Хебба
 predictions = predict_hebb_model(test_images, weights)
-print('predictions ==>>', predictions)
 
 # Виведення результатів
 print("Тестування розпізнавання:")
